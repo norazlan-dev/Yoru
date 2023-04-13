@@ -29,6 +29,10 @@ class HomeFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        binding.buttonChat.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_chatFragment)
+        }
     }
 
     override fun onDestroyView() {

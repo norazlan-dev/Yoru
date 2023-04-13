@@ -14,9 +14,17 @@
         <Button
             android:layout_gravity="center"
             android:id="@+id/button_first"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next"/>
+            android:text="@string/next"
+            android:layout_marginBottom="8dp"/>
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/button_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chat"
+            android:layout_marginBottom="8dp"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
