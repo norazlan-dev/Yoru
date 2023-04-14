@@ -1,11 +1,13 @@
 package dev.nora.yoru
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.WindowInsetsCompat
 import dev.nora.yoru.databinding.FragmentChatBinding
 import java.time.LocalDate
 import java.time.LocalTime
@@ -26,8 +28,16 @@ class ChatFragment : Fragment() {
 
     }
 
+    private fun getNavigationBarHeight(activity: Activity): Int {
+        val windowInsets = WindowInsetsCompat.toWindowInsetsCompat(activity.window.decorView.rootWindowInsets)
+        return windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val paddingBottom = getNavigationBarHeight(requireActivity())
+        binding.chatFrameMain.setPadding(0, 0, 0, paddingBottom)
+
         val words = listOf(
             "Hello, how are you? How's it going?",
             "What's up?",
@@ -41,6 +51,7 @@ class ChatFragment : Fragment() {
             "Hello, how are you? What have you been up to?"
         )
         var from = ""
+        var current = ""
 
         binding.btnSend.setOnClickListener {
             val date = LocalDate.now()
@@ -54,13 +65,15 @@ class ChatFragment : Fragment() {
             val formattedTime = time.format(timeFormatter)
             val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth : $formattedTime"
 
-            if (binding.chatFrame.childCount > 0 && from == "send") {
-                val lastMessageView = binding.chatFrame.getChildAt(binding.chatFrame.childCount - 1) as LinearLayout
-                val lastMessageTextView = lastMessageView.findViewById<TextView>(R.id.message_time)
-                if (lastMessageTextView.text.toString() == formattedDateTime) {
-                    lastMessageTextView.visibility = View.GONE
-                }
-            }
+//            FOR BOTTOM DATE
+//            from = "send"
+//            if (binding.chatFrame.childCount > 0 && from == "send") {
+//                val lastMessageView = binding.chatFrame.getChildAt(binding.chatFrame.childCount - 1) as LinearLayout
+//                val lastMessageTextView = lastMessageView.findViewById<TextView>(R.id.message_time)
+//                if (lastMessageTextView.text.toString() == formattedDateTime) {
+//                    lastMessageTextView.visibility = View.GONE
+//                }
+//            }
 
             val messageView = LayoutInflater.from(context).inflate(R.layout.asset_chatbox, null) as LinearLayout
             messageView.findViewById<TextView>(R.id.message_text).text = "Hello, ${words.random()} ${words.random()}"
@@ -73,8 +86,15 @@ class ChatFragment : Fragment() {
             layoutParams.topMargin = context?.resources?.getDimensionPixelSize(R.dimen.margin_8dp)!!
             layoutParams.marginStart = context?.resources?.getDimensionPixelSize(R.dimen.margin_32dp)!!
             messageView.layoutParams = layoutParams
-            binding.chatFrame.addView(messageView)
+
+            //FOR TOP DATE
+            if (current == messageView.findViewById<TextView>(R.id.message_time).text && from == "send") {
+                messageView.findViewById<TextView>(R.id.message_time).visibility = View.GONE
+            }
+            current = formattedDateTime
             from = "send"
+
+            binding.chatFrame.addView(messageView)
             binding.chatFrameScroll.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     binding.chatFrameScroll.post {
@@ -97,13 +117,15 @@ class ChatFragment : Fragment() {
             val formattedTime = time.format(timeFormatter)
             val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth : $formattedTime"
 
-            if (binding.chatFrame.childCount > 0 && from == "receive") {
-                val lastMessageView = binding.chatFrame.getChildAt(binding.chatFrame.childCount - 1) as LinearLayout
-                val lastMessageTextView = lastMessageView.findViewById<TextView>(R.id.message_time)
-                if (lastMessageTextView.text.toString() == formattedDateTime) {
-                    lastMessageTextView.visibility = View.GONE
-                }
-            }
+//            FOR BOTTOM DATE
+//            from = "receive"
+//            if (binding.chatFrame.childCount > 0 && from == "receive") {
+//                val lastMessageView = binding.chatFrame.getChildAt(binding.chatFrame.childCount - 1) as LinearLayout
+//                val lastMessageTextView = lastMessageView.findViewById<TextView>(R.id.message_time)
+//                if (lastMessageTextView.text.toString() == formattedDateTime) {
+//                    lastMessageTextView.visibility = View.GONE
+//                }
+//            }
 
             val messageView = LayoutInflater.from(context).inflate(R.layout.asset_chatbox_alt, null) as LinearLayout
             messageView.findViewById<TextView>(R.id.message_text).text = "Hey, ${words.random()} ${words.random()}"
@@ -112,11 +134,18 @@ class ChatFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            messageView.layoutParams = layoutParams
             layoutParams.topMargin = context?.resources?.getDimensionPixelSize(R.dimen.margin_8dp)!!
             layoutParams.marginEnd = context?.resources?.getDimensionPixelSize(R.dimen.margin_32dp)!!
-            binding.chatFrame.addView(messageView)
+            messageView.layoutParams = layoutParams
+
+            //FOR TOP DATE
+            if (current == messageView.findViewById<TextView>(R.id.message_time).text && from == "receive") {
+                messageView.findViewById<TextView>(R.id.message_time).visibility = View.GONE
+            }
+            current = formattedDateTime
             from = "receive"
+
+            binding.chatFrame.addView(messageView)
             binding.chatFrameScroll.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     binding.chatFrameScroll.post {

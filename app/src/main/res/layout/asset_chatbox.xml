@@ -6,6 +6,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:paddingVertical="8dp"
+        android:layout_gravity="end"
+        android:id="@+id/message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="?attr/colorPrimary"/>
+
     <androidx.cardview.widget.CardView
         app:cardElevation="0dp"
         android:orientation="vertical"
@@ -33,14 +42,5 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:padding="8dp"
-        android:layout_gravity="end"
-        android:id="@+id/message_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="?attr/colorPrimary"/>
 
 </LinearLayout>
