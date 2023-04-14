@@ -63,7 +63,7 @@ class ChatFragment : Fragment() {
             val time = LocalTime.now()
             val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
             val formattedTime = time.format(timeFormatter)
-            val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth : $formattedTime"
+            val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth • $formattedTime"
 
 //            FOR BOTTOM DATE
 //            from = "send"
@@ -115,7 +115,7 @@ class ChatFragment : Fragment() {
             val time = LocalTime.now()
             val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
             val formattedTime = time.format(timeFormatter)
-            val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth : $formattedTime"
+            val formattedDateTime = "$formattedDayOfWeek, $dayOfMonth $formattedMonth • $formattedTime"
 
 //            FOR BOTTOM DATE
 //            from = "receive"
