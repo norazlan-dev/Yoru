@@ -35,8 +35,6 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val paddingBottom = getNavigationBarHeight(requireActivity())
-        binding.chatFrameMain.setPadding(0, 0, 0, paddingBottom)
 
         val words = listOf(
             "Hello, how are you? How's it going?",
