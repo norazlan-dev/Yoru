@@ -50,4 +50,8 @@
     <string name="chat">Chat</string>
     <string name="send">Send</string>
     <string name="receive">Receive</string>
+    <string name="home">Home</string>
+    <string name="hot">Hot</string>
+    <string name="nav">Nav</string>
+    <string name="settings">Settings</string>
 </resources>
